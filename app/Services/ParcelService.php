@@ -29,8 +29,25 @@ class ParcelService
      */
     public function get()
     {
-        $parcelCondition = $this->request->user()->type == User::TYPE['sender'] ? ["sender_id" => $this->request->user()->id] : ["biker_id" => $this->request->user()->id];
-        return $this->parcelModel->where($parcelCondition)->get();
+        if($this->request->user()->type == User::TYPE['sender'])
+        {
+            $parcels = $this->parcelModel
+                ->select('parcels.id','parcels.delivery_address','parcels.pickup_address','parcels.status','parcels.pickup_time', 'users.name as biker_name')
+                ->leftjoin('users','parcels.biker_id','=','users.id')
+                ->where(['parcels.sender_id' => $this->request->user()->id])
+                ->get();
+        }
+        elseif($this->request->user()->type == User::TYPE['biker'])
+        {
+            $parcels = $this->parcelModel
+                ->select('parcels.id','parcels.delivery_address','parcels.pickup_address','parcels.status','parcels.pickup_time', 'users.name as sender_name')
+                ->leftjoin('users','parcels.sender_id','=','users.id')
+                ->where(['parcels.biker_id' => $this->request->user()->id])
+                ->orWhere(['parcels.biker_id' => null, 'parcels.status' => 0])
+                ->get();
+        }
+
+        return $parcels;
     }
 
     /**
@@ -63,8 +80,8 @@ class ParcelService
      */
     public function store()
     {
-
-        $input['sender_id'] = $this->request()->user()->id;
+        $input = $this->request->all();
+        $input['sender_id'] = $this->request->user()->id;
 
         return $this->parcelModel->create($input);
     }
@@ -82,7 +99,6 @@ class ParcelService
             $parcel->status = 1;
             $parcel->pickup_time = now();
             $parcel->save();
-            $parcel->status = Parcel::STATUS[$parcel->status];
         }
         return $parcel;
     }

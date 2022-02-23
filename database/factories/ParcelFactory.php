@@ -16,8 +16,8 @@ class ParcelFactory extends Factory
         return [
             'sender_id' => rand(1,5),
             'biker_id' => null,
-            'pickup_address' => $this->faker->address(),
-            'delivery_address' => $this->faker->address(),
+            'pickup_address' => $this->faker->city(),
+            'delivery_address' => $this->faker->city(),
             'status' => 0,
         ];
     }

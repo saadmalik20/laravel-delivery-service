@@ -21,6 +21,7 @@ Route::middleware('auth:api')->group( function () {
 
     Route::get('parcels', [\App\Http\Controllers\API\ParcelController::class, "index"]);
     Route::get('parcel/{id}', [\App\Http\Controllers\API\ParcelController::class, "show"]);
+    Route::post('parcel', [\App\Http\Controllers\API\ParcelController::class, "store"]);
 
     Route::put('parcel/pick/{id}', [\App\Http\Controllers\API\ParcelController::class, "pickup"])->middleware(\App\Http\Middleware\bikers::class);
 });

@@ -19,7 +19,7 @@ class CreateParcelsTable extends Migration
             $table->unsignedBigInteger("biker_id")->nullable();
             $table->string("pickup_address");
             $table->string("delivery_address");
-            $table->unsignedSmallInteger("status")->comment("0=waiting, 1=picked, 2=delivered");
+            $table->unsignedSmallInteger("status")->default(0)->comment("0=waiting, 1=picked, 2=delivered");
             $table->timestamp("pickup_time")->nullable();
             $table->timestamps();
         });

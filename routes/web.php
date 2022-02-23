@@ -17,11 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\WEB\LoginController::class, 'LoginForm'])->name('login');
 
 ## Sender Route
-Route::get('/sender', '\App\Http\Controllers\WEB\UserController@sender')->name('sender');
+Route::get('/sender', '\App\Http\Controllers\WEB\ParcelController@senderDashboard')->name('sender');
 
 ## Biker Route
-Route::get('/biker', '\App\Http\Controllers\WEB\UserController@biker')->name('biker');
-Route::get('/parcels', '\App\Http\Controllers\WEB\ParcelController@myParcels')->name('parcels');
-Route::get('/parcels/{parcel}', '\App\Http\Controllers\WEB\ParcelController@editParcel')->name('parcel.status');
+Route::get('/biker', '\App\Http\Controllers\WEB\ParcelController@bikerDashboard')->name('biker');
+
+##Parcels Routes
+Route::get('/parcel/pick/{id}', '\App\Http\Controllers\WEB\ParcelController@pickup')->name('parcel.pickup');
+Route::get('/parcel/{id}', '\App\Http\Controllers\WEB\ParcelController@detail')->name('parcel.detail');
 
 

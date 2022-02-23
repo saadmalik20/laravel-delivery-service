@@ -19,4 +19,9 @@ class Parcel extends Model
         2 => 'delivered'
     ];
 
+    public function getStatusAttribute($status)
+    {
+        return Parcel::STATUS[$status];
+    }
+
 }

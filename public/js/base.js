@@ -3,5 +3,5 @@ const setUserData = (userData) => {
 }
 
 const getuserData = () => {
-    return window.localStorage.getItem("userData");
+    return JSON.parse(window.localStorage.getItem("userData"));
 }
