@@ -10,13 +10,14 @@ class Parcel extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sender_id', 'biker_id', 'pickup_address', 'delivery_address', 'status', 'pickup_time'
+        'sender_id', 'biker_id', 'pickup_address', 'delivery_address', 'status', 'pickup_time' ,'delivered_time'
     ];
 
     const STATUS = [
         0 => 'waiting',
-        1 => 'picked',
-        2 => 'delivered'
+        1 => 'selected',
+        2 => 'picked',
+        3 => 'delivered'
     ];
 
     public function getStatusAttribute($status)

@@ -15,6 +15,6 @@ class ParcelSeeder extends Seeder
     public function run()
     {
         Parcel::truncate();
-        $sender = Parcel::factory()->count(50)->create();
+        $sender = Parcel::factory()->count(20)->create();
     }
 }

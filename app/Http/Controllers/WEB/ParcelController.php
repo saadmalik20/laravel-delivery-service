@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ParcelController extends Controller
 {
-    public function senderDashboard(Request $request)
+    public function senderDashboard()
     {
         return view('sender-dashboard');
     }
@@ -18,18 +18,23 @@ class ParcelController extends Controller
         return view('biker-dashboard');
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function pickup(Request $request)
+    public function pickup()
     {
         return view('pickup');
     }
 
-    public function detail(Request $request)
+    public function detail()
     {
         return view('pickup');
     }
 
+    public function create()
+    {
+        return view('create');
+    }
+
+    public function edit($id)
+    {
+        return view('edit')->with('id', $id);;
+    }
 }

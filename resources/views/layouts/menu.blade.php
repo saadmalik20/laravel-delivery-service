@@ -1,3 +1,20 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        var bikerDisplayer = "";
+        if (getuserData().type == 1)
+        {
+            $("#createParcel").hide();
+            $("#senderList").hide();
+            $("#bikerList").show();
+        }
+        else {
+            $("#createParcel").show();
+            $("#senderList").show();
+            $("#bikerList").hide();
+        }
+    });
+</script>
+
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -9,12 +26,36 @@
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link " href="../pages/dashboard.html">
+            <li class="nav-item" id="senderList">
+                <a class="nav-link " href="/sender">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Parcels</span>
+                </a>
+            </li>
+            <li class="nav-item" id="bikerList">
+                <a class="nav-link " href="/biker">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Parcels</span>
+                </a>
+            </li>
+            <li class="nav-item" id="createParcel">
+                <a class="nav-link " href="/parcel/create">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1"> Create Parcel</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1"> Logout</span>
                 </a>
             </li>
     </div>

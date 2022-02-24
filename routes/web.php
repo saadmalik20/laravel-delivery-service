@@ -24,6 +24,10 @@ Route::get('/biker', '\App\Http\Controllers\WEB\ParcelController@bikerDashboard'
 
 ##Parcels Routes
 Route::get('/parcel/pick/{id}', '\App\Http\Controllers\WEB\ParcelController@pickup')->name('parcel.pickup');
-Route::get('/parcel/{id}', '\App\Http\Controllers\WEB\ParcelController@detail')->name('parcel.detail');
+//Route::get('/parcel/{id}', '\App\Http\Controllers\WEB\ParcelController@detail')->name('parcel.detail');
+
+Route::get('/parcel/create', '\App\Http\Controllers\WEB\ParcelController@create')->name('parcel.create');
+
+Route::get('/parcel/{id}', '\App\Http\Controllers\WEB\ParcelController@edit')->name('parcel.edit');
 
 

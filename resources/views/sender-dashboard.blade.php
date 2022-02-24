@@ -14,9 +14,10 @@
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pick Up</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Drop off</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Pickup Time</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Delivery Time</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rider</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pick Time</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -55,11 +56,12 @@
                 innerHtml += `<tr id=${value.id}>
                 <td>${value.pickup_address}</td>
                 <td>${value.delivery_address}</td>
+                <td>${value.pickup_time ? value.pickup_time : ''}</td>
+                <td>${value.delivered_time ? value.delivered_time : ''}</td>
                 <td class="align-middle text-center text-sm">
                     <span class="badge badge-sm bg-gradient-success">${value.status}</span>
                 </td>
                 <td class="text-center">${value.biker_name ? value.biker_name : 'Not Picked'}</td>
-                <td class="text-center">${value.pickup_time ? value.pickup_time: '-'}</td>
                 </tr>`;
               });
               $('#parcels-table tbody').html(innerHtml);

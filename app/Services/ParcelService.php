@@ -32,18 +32,20 @@ class ParcelService
         if($this->request->user()->type == User::TYPE['sender'])
         {
             $parcels = $this->parcelModel
-                ->select('parcels.id','parcels.delivery_address','parcels.pickup_address','parcels.status','parcels.pickup_time', 'users.name as biker_name')
+                ->select('parcels.id','parcels.delivery_address', 'parcels.delivered_time','parcels.pickup_address','parcels.status','parcels.pickup_time', 'users.name as biker_name')
                 ->leftjoin('users','parcels.biker_id','=','users.id')
                 ->where(['parcels.sender_id' => $this->request->user()->id])
+                ->orderBy('parcels.updated_at', 'DESC')
                 ->get();
         }
         elseif($this->request->user()->type == User::TYPE['biker'])
         {
             $parcels = $this->parcelModel
-                ->select('parcels.id','parcels.delivery_address','parcels.pickup_address','parcels.status','parcels.pickup_time', 'users.name as sender_name')
+                ->select('parcels.id','parcels.delivery_address', 'parcels.delivered_time','parcels.pickup_address','parcels.status','parcels.pickup_time', 'users.name as sender_name')
                 ->leftjoin('users','parcels.sender_id','=','users.id')
                 ->where(['parcels.biker_id' => $this->request->user()->id])
                 ->orWhere(['parcels.biker_id' => null, 'parcels.status' => 0])
+                ->orderBy('parcels.updated_at', 'DESC')
                 ->get();
         }
 
@@ -59,7 +61,7 @@ class ParcelService
         if($this->request->user()->type == User::TYPE['sender'])
         {
             $parcel = $this->parcelModel
-                ->select('parcels.id','parcels.delivery_address','parcels.pickup_address','parcels.status','parcels.pickup_time', 'users.name as biker_name')
+                ->select('parcels.id','parcels.delivery_address', 'parcels.delivered_time','parcels.pickup_address','parcels.status','parcels.pickup_time', 'users.name as biker_name')
                 ->leftjoin('users','parcels.biker_id','=','users.id')
                 ->where(['parcels.id' => $id, 'parcels.sender_id' => $this->request->user()->id])
                 ->first();
@@ -67,7 +69,7 @@ class ParcelService
         elseif($this->request->user()->type == User::TYPE['biker'])
         {
             $parcel = $this->parcelModel
-                ->select('parcels.id','parcels.delivery_address','parcels.pickup_address','parcels.status','parcels.pickup_time', 'users.name as sender_name')
+                ->select('parcels.id','parcels.delivery_address', 'parcels.delivered_time','parcels.pickup_address','parcels.status','parcels.pickup_time', 'users.name as sender_name')
                 ->join('users','parcels.sender_id','=','users.id')
                 ->where(['parcels.id' => $id, 'parcels.biker_id' => $this->request->user()->id])
                 ->first();
@@ -101,5 +103,23 @@ class ParcelService
             $parcel->save();
         }
         return $parcel;
+    }
+
+    /**
+     * @param $id
+     * @return parcel collection
+     */
+    public function updateParcel($id)
+    {
+        $parcel = $this->parcelModel->find($id);
+        if ($parcel->status == 'selected') {
+            $parcel->status = 2;
+            $parcel->pickup_time = $this->request->pickup_time;
+        } else {
+            $parcel->status = 3;
+            $parcel->delivered_time = $this->request->delivery_time;
+        }
+
+        return $parcel->save();
     }
 }
